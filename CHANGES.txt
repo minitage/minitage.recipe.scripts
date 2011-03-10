@@ -2,7 +2,7 @@
 CHANGELOG
 =======================
 
-1.55 (unreleased)
+1.55 (2011-03-11)
 -----------------
 
     - Use os.execvpe to spawn processes, not subprocess. Thx to Dave Foster (daf)
