@@ -1,0 +1,2 @@
+include src/minitage/recipe/scripts/tests/*.txt
+include CHANGES.txt
