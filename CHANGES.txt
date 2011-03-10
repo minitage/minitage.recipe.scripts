@@ -2,9 +2,10 @@
 CHANGELOG
 =======================
 
-UP
-----
+1.55 (unreleased)
+-----------------
 
+    - Use os.execvpe to spawn processes, not subprocess. Thx to Dave Foster (daf)
     - Split tests
     - Add initialization for interpreter script
     - Fix type 'list'and pattern replacement code
