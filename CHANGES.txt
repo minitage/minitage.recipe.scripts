@@ -2,6 +2,12 @@
 CHANGELOG
 =======================
 
+1.57 (unreleased)
+-----------------
+
+- Nothing changed yet.
+
+
 1.56 (2013-02-13)
 -----------------
 - Keep return code from scripts
