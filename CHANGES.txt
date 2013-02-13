@@ -5,7 +5,7 @@ CHANGELOG
 1.57 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- buildout2 compat
 
 
 1.56 (2013-02-13)

@@ -47,6 +47,10 @@ re_flags = re.U|re.M|re.S|re.X
 template_replacements = {
     re.compile('\\\\t', re_flags): '    ', # \t -> '    '
 }
+
+D = os.path.dirname
+J = os.path.join
+
 class Recipe(egg.Recipe):
     """
     Downloads and installs a distutils Python distribution.
@@ -244,14 +248,16 @@ class Recipe(egg.Recipe):
         interpreter = self.interpreter
         if interpreter:
             interpreter_vars = self.get_script_vars(template_vars, interpreter)
-            inst_script = os.path.join(bin, interpreter)
+            # buildout.minitagicator trick to handle zc.buildout.easy_install[interpreter] monkey patch
+            inst_script = J(bin, interpreter)
+            if self._dest != os.path.abspath(self.buildout['buildout']['eggs-directory']):
+                inst_script = J(self._dest, interpreter)
             init_key = '%s-initialization' % self.interpreter
             template_vars['zopepy_initialization'] = self.options.get(
                 init_key,
                 template_vars['zopepy_initialization']
             )
             installed_scripts[interpreter] = inst_script, py_script_template % template_vars
-
         if self.env_file:
             env_vars = self.get_script_vars(template_vars, os.path.basename(self.env_file))
             env_vars['path'] = ':'.join(abs_pypath)
