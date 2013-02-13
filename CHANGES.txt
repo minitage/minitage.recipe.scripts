@@ -4,8 +4,7 @@ CHANGELOG
 
 1.56 (unreleased)
 -----------------
-
-- Nothing changed yet.
+- Keep return code from scripts
 
 
 1.55 (2011-03-11)
