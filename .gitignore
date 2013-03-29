@@ -6,3 +6,6 @@ eggs
 .installed.cfg
 develop-eggs/
 parts
+*pyo
+*pyc
+build
