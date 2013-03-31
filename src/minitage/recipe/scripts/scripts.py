@@ -43,7 +43,7 @@ from minitage.core.common import get_from_cache, system, splitstrip
 parse_entry_point = re.compile(
         '([^=]+)=(\w+(?:[.]\w+)*):(\w+(?:[.]\w+)*)$'
         ).match
-re_flags = re.U|re.M|re.S|re.X
+re_flags = re.U | re.M | re.S | re.X
 template_replacements = {
     re.compile('\\\\t', re_flags): '    ', # \t -> '    '
 }
@@ -106,11 +106,21 @@ class Recipe(egg.Recipe):
             else:
                 return False
 
-        dist_in_eggs = (dist.project_name in self.eggs
+        noextras = re.compile('\s*\[[^\]+]\]', re_flags).sub
+        our_eggs = []
+        for i in self.eggs:
+            try:
+                #only keep project_name (remove version & extras)
+                our_eggs.append(
+                    pkg_resources.Requirement.parse(i).project_name
+                )
+            except:
+                continue
+        dist_in_eggs = (dist.project_name in our_eggs
                         or (
                             len(
                                 [a
-                                 for a in self.eggs
+                                 for a in our_eggs
                                  if a.startswith('%s==' % dist.project_name)
                                 ]
                             ) > 0
@@ -119,7 +129,7 @@ class Recipe(egg.Recipe):
 
         if not (name in self.zap):
             if not self.dependent_scripts:
-                if (not dist.project_name in self.eggs)\
+                if (not dist.project_name in our_eggs)\
                 and (not name in console_scripts):
                     return False
 
@@ -242,7 +252,7 @@ class Recipe(egg.Recipe):
                     entry_points.append(
                         (name, entry_point.module_name,
                          '.'.join(entry_point.attrs))
-                        )
+                    )
 
         # generate interpreter
         interpreter = self.interpreter

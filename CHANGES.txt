@@ -5,7 +5,7 @@ CHANGELOG
 1.58 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- fix bug that would save scripts from eggs with extras beeing generated in some corner case
 
 
 1.57 (2013-02-13)
